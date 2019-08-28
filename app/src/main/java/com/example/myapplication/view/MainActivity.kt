@@ -8,9 +8,10 @@ import com.example.myapplication.ViewInterface
 import com.example.myapplication.presenter.Presenter
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(),ViewInterface{
+class MainActivity : AppCompatActivity(), ViewInterface{
 
- private lateinit var presenter : Presenter
+ private lateinit var presenter: Presenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -18,15 +19,17 @@ class MainActivity : AppCompatActivity(),ViewInterface{
         presenter = Presenter(this)
 
         btn_login.setOnClickListener {
-         processLogin()
+         loginUser()
         }
     }
 
-    private fun processLogin(){
+    private fun loginUser(){// We can simply move the body of this function inside the
+                               // setOnClickListener.
         val email = et_email.text.toString()
         val password = et_password.text.toString()
         presenter.processLogin(email, password)
     }
+
     override fun showProgress() {
     }
 
@@ -42,7 +45,7 @@ class MainActivity : AppCompatActivity(),ViewInterface{
 
     }
 
-    override fun onDestroy() {
+    override fun onDestroy() { // this is the activity's onDestroy() method call
         super.onDestroy()
         presenter.onDestroy()
     }
